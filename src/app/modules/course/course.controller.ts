@@ -18,3 +18,9 @@ const createCourse = catchAsync(async (req, res) => {
     });
 
 });
+
+
+
+export const courseControllers = {
+    createCourse
+}
