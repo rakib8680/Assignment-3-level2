@@ -10,7 +10,16 @@ const createCategory = async(payload : TCategory)=>{
 };
 
 
+// get all categories 
+const getAllCategories = async ()=>{
+    const result =await Category.find();
+    
+    return result;
+}
+
+
 
 export const categoryServices = {
-    createCategory
+    createCategory,
+    getAllCategories
 }
