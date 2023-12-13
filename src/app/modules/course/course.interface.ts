@@ -1,16 +1,13 @@
 import { Types } from 'mongoose';
 
 
-
 export type TTags = {
-    name: string;
-    isDeleted: boolean;
+  name: string;
+  isDeleted: boolean;
 };
 
-export type TDetails  = {
-    level: 'Beginner' | 'Intermediate' | 'Advanced';
-    description: string;
-}
+
+export type TLevels = 'Beginner' | 'Intermediate' | 'Advanced';
 
 
 export type TCourse = {
@@ -24,6 +21,8 @@ export type TCourse = {
   language: string;
   provider: string;
   durationInWeeks: number;
-  details: TDetails;
+  details: {
+    level: TLevels;
+    description: string;
+  };
 };
- 
