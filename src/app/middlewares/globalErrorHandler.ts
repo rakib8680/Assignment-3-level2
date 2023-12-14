@@ -4,6 +4,7 @@
 
 import { ErrorRequestHandler } from "express";
 import { ZodError } from "zod";
+import { handleValidationError } from "../errors/handleValidationError";
 import { handleZodError } from "../errors/handleZodErrors";
 import { TErrorResponse } from "../types/TErrorResponse";
 
@@ -19,7 +20,7 @@ export const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => 
     if(err instanceof ZodError){
        errorResponse =  handleZodError(err)
     }else if(err.name === 'ValidationError'){
-        
+        errorResponse = handleValidationError(err)
     }
 
 
