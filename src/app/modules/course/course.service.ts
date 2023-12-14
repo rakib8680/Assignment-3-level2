@@ -38,6 +38,7 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
   };
 
 
+
   if(tags && tags.length>0){
 
     // delete tags 
@@ -45,21 +46,22 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
     .filter(tag =>tag.name && tag.isDeleted)
     .map(tag=>tag.name);
 
+
+
    const deletedTagsResult=  await Course.findByIdAndUpdate(
         id,
         {
             $pull:{
-                $tags:{
+                tags:{
                     name:{
-                        $in:{
-                            name:deletedTags
-                        }
+                        $in:deletedTags
                     }
                 }
             }
         },
         {new: true, runValidators: true}
     );
+
     if (!deletedTagsResult) {
         throw new Error('Failed to update course');
       };
@@ -67,21 +69,34 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
 
 
     // add new tag 
-    
-
-
-
-
+    const newTags = tags?.filter(tag =>tag.name && !tag.isDeleted)
+      const newTagsResult = await Course.findByIdAndUpdate(
+        id,
+        {
+            $addToSet:{
+                tags:{
+                    $each: newTags
+                }
+            }
+        },
+        {new: true, runValidators: true}
+      );
+      if (!newTagsResult) {
+        throw new Error('Failed to update course');
+      };
 
 
   }
 
+// final result 
+  const result = await Course.findById(id)
+  return result
 
-
-
-
-  return updatePrimitiveData
 };
+
+
+
+
 
 export const courseServices = {
   createCourse,
