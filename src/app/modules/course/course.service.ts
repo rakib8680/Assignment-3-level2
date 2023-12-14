@@ -1,4 +1,4 @@
-import {filterFunction } from "../../helpers/filterHelper";
+import { queryFunction } from "../../helpers/queryFunction";
 import { TCourse } from "./course.interface";
 import { Course } from "./course.model";
 
@@ -17,13 +17,9 @@ const createCourse = async (payload: TCourse)=>{
 
 
 // get all course 
-const getAllCourse = async (query: Record <string, unknown>)=>{
+const getAllCourse = async (query: Record <string, unknown>):Promise<TCourse[]>=>{
 
-
-
-
-
-    const result = await filterFunction(Course.find(),query);
+    const result = await queryFunction(Course.find(), query);
     return result;
 }
 

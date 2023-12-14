@@ -7,8 +7,8 @@ export const filterPriceFunction = <T>(
 ) => {
   if (query?.minPrice && query?.maxPrice) {
     const queryObj = {
-      $lte: Number(query.minPrice),
-      $gte: Number(query.maxPrice),
+      $gte: Number(query.minPrice),
+      $lte: Number(query.maxPrice),
     };
     const result = modelQuery.find({
       price: queryObj,

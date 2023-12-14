@@ -1,22 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Query } from "mongoose";
-import { TQueryObj } from "../types/TQueryObj";
+import { Query } from 'mongoose';
+import { TQueryObj } from '../types/TQueryObj';
+
+export const filterFunction = <T>(
+  modelQuery: Query<T[], T>,
+  query: TQueryObj,
+) => {
 
 
-export const filterFunction = <T>(modelQuery : Query<T[],T>, query : TQueryObj)=>{
+  const excludeFields = ['page', 'limit', 'sortBy', 'sortOrder','minPrice', 'maxPrice' ];
 
-    const excludeFields = ['page', 'limit', 'sortBy', 'sortOrder', 'fields'];
-    excludeFields.forEach(el => delete query[el]);
+  const copyQueryObj: any = { ...query };
 
-    const copyQueryObj:any = { ...modelQuery };
+  if (copyQueryObj.level) {
+    copyQueryObj['details.level'] = copyQueryObj.level;
+    delete copyQueryObj.level;
+  }
+  excludeFields.forEach((el) => delete copyQueryObj[el as keyof TQueryObj]);
 
-    if (copyQueryObj.level) {
-        copyQueryObj["details.level"] = copyQueryObj.level;
-        delete copyQueryObj.level;
-      }
-      excludeFields.forEach(el => delete query[el as keyof TQueryObj]);
+  const result  = modelQuery.find(copyQueryObj);
 
-
-     modelQuery = modelQuery.find(query)
-    return modelQuery;
-}
+  return result;
+};
