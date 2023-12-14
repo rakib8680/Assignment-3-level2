@@ -13,4 +13,6 @@ router.post(
 
 router.get('/courses', courseControllers.getAllCourse)
 
+router.put('/:courseId', requestValidation(courseValidations.updateCourseSchemaValidation), courseControllers.updateCourse)
+
 export const courseRoutes = router;
