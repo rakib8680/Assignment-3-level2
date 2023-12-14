@@ -27,7 +27,6 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
   const { tags, details, ...remainingData } = payload;
 
 
-
   const updatePrimitiveData = await Course.findByIdAndUpdate(
     id,
     remainingData,
@@ -38,15 +37,13 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
   };
 
 
-
+//   update tags 
   if(tags && tags.length>0){
 
     // delete tags 
     const deletedTags = tags
     .filter(tag =>tag.name && tag.isDeleted)
     .map(tag=>tag.name);
-
-
 
    const deletedTagsResult=  await Course.findByIdAndUpdate(
         id,
@@ -61,7 +58,6 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
         },
         {new: true, runValidators: true}
     );
-
     if (!deletedTagsResult) {
         throw new Error('Failed to update course');
       };
@@ -84,12 +80,25 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
       if (!newTagsResult) {
         throw new Error('Failed to update course');
       };
+  };
 
 
-  }
+
+//   update details 
+  const modifiedUpdatedData :Record<string, unknown> = {
+    ...remainingData
+  };
+
+  if(details && Object.keys(details).length){
+    for(const [key,value] of Object.entries(details)){
+        modifiedUpdatedData[`details.${key}`] = value;
+    };
+  };
+
+
 
 // final result 
-  const result = await Course.findById(id)
+  const result = await Course.findByIdAndUpdate(id, modifiedUpdatedData, { new: true, runValidators: true } )
   return result
 
 };

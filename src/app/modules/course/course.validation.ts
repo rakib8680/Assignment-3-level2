@@ -8,7 +8,7 @@ const tagsSchemaValidation = z.object({
 
 const detailsSchemaValidation = z.object({
   level: z.enum([...CourseLevel] as [string, ...string[]]),
-  description: z.string(),
+  description: z.string().optional(),
 });
 
 const createCourseSchemaValidation = z.object({
