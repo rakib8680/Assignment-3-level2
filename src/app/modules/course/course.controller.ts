@@ -6,7 +6,6 @@ import { courseServices } from "./course.service";
 
 // create course 
 const createCourse = catchAsync(async (req, res) => {
-
     const courseData = req.body;
     const result = await courseServices.createCourse(courseData);
 
@@ -16,11 +15,26 @@ const createCourse = catchAsync(async (req, res) => {
         message: 'Course created successfully',
         data: result
     });
-
 });
+
+
+// get all course 
+const getAllCourse = catchAsync(async (req,res)=>{
+    const result = await courseServices.getAllCourse();
+
+      sendResponse(res,{
+        success: true,
+        statusCode: 200,
+        message: 'Courses retrieved successfully',
+        data: result
+    });
+})
+
+
 
 
 
 export const courseControllers = {
-    createCourse
+    createCourse,
+    getAllCourse
 }
