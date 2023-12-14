@@ -1,3 +1,4 @@
+import AppError from '../../errors/appError';
 import { queryFunction } from '../../helpers/queryFunction';
 import { TCourse } from './course.interface';
 import { Course } from './course.model';
@@ -33,7 +34,7 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
     { new: true, runValidators: true },
   );
   if (!updatePrimitiveData) {
-    throw new Error('Failed to update course');
+    throw new AppError(500,'Failed to update course');
   };
 
 
@@ -59,7 +60,7 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
         {new: true, runValidators: true}
     );
     if (!deletedTagsResult) {
-        throw new Error('Failed to update course');
+        throw new AppError(500,'Failed to update course');
       };
 
 
@@ -78,7 +79,7 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
         {new: true, runValidators: true}
       );
       if (!newTagsResult) {
-        throw new Error('Failed to update course');
+        throw new AppError(500,'Failed to update course');
       };
   };
 
