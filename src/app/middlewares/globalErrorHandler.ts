@@ -7,6 +7,7 @@ import { ZodError } from "zod";
 import { handleValidationError } from "../errors/handleValidationError";
 import { handleZodError } from "../errors/handleZodErrors";
 import { TErrorResponse } from "../types/TErrorResponse";
+import { handleCastError } from "../errors/handleCastError";
 
 
 export const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
@@ -21,6 +22,8 @@ export const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => 
        errorResponse =  handleZodError(err)
     }else if(err.name === 'ValidationError'){
         errorResponse = handleValidationError(err)
+    }else if(err.name === 'CastError'){
+      errorResponse = handleCastError(err)
     }
 
 
