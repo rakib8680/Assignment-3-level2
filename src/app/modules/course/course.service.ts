@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import AppError from '../../errors/appError';
 import { queryFunction } from '../../helpers/queryFunction';
 import { TCourse } from './course.interface';
@@ -96,8 +97,6 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
     };
   };
 
-
-
 // final result 
   const result = await Course.findByIdAndUpdate(id, modifiedUpdatedData, { new: true, runValidators: true } )
   return result
@@ -106,10 +105,29 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
 
 
 
+// get single course with reviews \
+const getCourseWithReviews = async (id: string) => {
+  const result = await Course.aggregate([
+    { $match: { _id: new mongoose.Types.ObjectId(id) } },
+    {
+      $lookup: {
+        from: 'reviews',
+        localField: '_id',
+        foreignField: 'courseId',
+        as : 'reviews'
+      }
+    }
+  ]);
+  return result;
+}
+
+
+
 
 
 export const courseServices = {
   createCourse,
   getAllCourse,
-  updateCourse
+  updateCourse,
+  getCourseWithReviews
 };

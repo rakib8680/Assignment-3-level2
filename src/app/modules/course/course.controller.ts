@@ -42,6 +42,20 @@ const updateCourse = catchAsync(async(req,res)=>{
         message: 'Course updated successfully',
         data: result
     });
+});
+
+
+// get single course with reviews 
+const getCourseWithReviews = catchAsync(async(req,res)=>{
+    const {courseId} = req.params;
+    const result = await courseServices.getCourseWithReviews(courseId)
+
+    sendResponse(res,{
+        success: true,
+        statusCode: 200,
+        message: 'Course and Reviews retrieved successfully',
+        data: result
+    });
 })
 
 
@@ -51,5 +65,6 @@ const updateCourse = catchAsync(async(req,res)=>{
 export const courseControllers = {
     createCourse,
     getAllCourse,
-    updateCourse
+    updateCourse,
+    getCourseWithReviews
 }

@@ -13,10 +13,6 @@ const moduleRoutes = [
         route : courseRoutes    
     },
     {
-        path: '/courses',
-        route : courseRoutes    
-    },
-    {
         path: '/',
         route : categoryRoutes    
     },

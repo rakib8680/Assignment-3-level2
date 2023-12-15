@@ -11,8 +11,11 @@ router.post(
   courseControllers.createCourse,
 );
 
-router.get('/courses', courseControllers.getAllCourse)
+router.get('/courses', courseControllers.getAllCourse);
 
-router.put('/:courseId', requestValidation(courseValidations.updateCourseSchemaValidation), courseControllers.updateCourse)
+router.put('/courses/:courseId', requestValidation(courseValidations.updateCourseSchemaValidation), courseControllers.updateCourse);
+
+router.get('/courses/:courseId/reviews', courseControllers.getCourseWithReviews)
+
 
 export const courseRoutes = router;
