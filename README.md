@@ -1,6 +1,6 @@
 ## How to Run Locally
 
-First Clone My Project
+First Clone My Project Repository by running the following command in your terminal
 
 ```bash
   git clone this repository

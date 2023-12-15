@@ -6,9 +6,14 @@ export const filterFunction = <T>(
   modelQuery: Query<T[], T>,
   query: TQueryObj,
 ) => {
-
-
-  const excludeFields = ['page', 'limit', 'sortBy', 'sortOrder','minPrice', 'maxPrice' ];
+  const excludeFields = [
+    'page',
+    'limit',
+    'sortBy',
+    'sortOrder',
+    'minPrice',
+    'maxPrice',
+  ];
 
   const copyQueryObj: any = { ...query };
 
@@ -18,7 +23,7 @@ export const filterFunction = <T>(
   }
   excludeFields.forEach((el) => delete copyQueryObj[el as keyof TQueryObj]);
 
-  const result  = modelQuery.find(copyQueryObj);
+  const result = modelQuery.find(copyQueryObj);
 
   return result;
 };

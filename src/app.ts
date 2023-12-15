@@ -16,12 +16,10 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
-
-
 // global error handling
 app.use(globalErrorHandler);
 
-// Api not found handling 
-app.use(notFound)
+// Api not found handling
+app.use(notFound);
 
 export default app;

@@ -1,7 +1,5 @@
-
-
 export type TErrorResponse = {
-    success : boolean,
-    message : string,
-    errorMessage : string
+  success: boolean;
+  message: string;
+  errorMessage: string;
 };

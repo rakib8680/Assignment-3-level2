@@ -1,7 +1,3 @@
-
-
-
-
 export type TCategory = {
-    name : string
-}
+  name: string;
+};

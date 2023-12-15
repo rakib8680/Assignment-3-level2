@@ -1,7 +1,5 @@
-import { z } from "zod";
-
-
+import { z } from 'zod';
 
 export const categorySchemaValidation = z.object({
-    name: z.string()
-})
+  name: z.string(),
+});
