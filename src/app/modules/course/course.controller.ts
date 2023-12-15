@@ -56,6 +56,19 @@ const getCourseWithReviews = catchAsync(async(req,res)=>{
         message: 'Course and Reviews retrieved successfully',
         data: result
     });
+});
+
+
+// get best course 
+const getBestCourse = catchAsync(async(req,res)=>{
+    const result = await courseServices.getBestCourse();
+
+    sendResponse(res,{
+        success: true,
+        statusCode: 200,
+        message: 'Best course retrieved successfully',
+        data: result
+    });
 })
 
 
@@ -66,5 +79,6 @@ export const courseControllers = {
     createCourse,
     getAllCourse,
     updateCourse,
-    getCourseWithReviews
+    getCourseWithReviews,
+    getBestCourse
 }

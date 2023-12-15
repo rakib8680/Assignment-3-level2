@@ -119,6 +119,59 @@ const getCourseWithReviews = async (id: string) => {
     }
   ]);
   return result;
+};
+
+
+// get best course according to rating 
+const getBestCourse = async()=>{
+
+  const result = await Course.aggregate([
+
+     // first stage
+     {
+      $lookup: {
+        from: "reviews",
+        localField: "_id",
+        foreignField: "courseId",
+        as: "reviews",
+      },
+    },
+
+
+    // second stage
+    {
+      $addFields: {
+        averageRating: { $avg: "$reviews.rating" },
+        reviewCount: { $size: "$reviews" },
+      },
+    },
+
+
+    // third stage
+    {
+      $sort: {
+        averageRating: -1,
+        reviewCount: -1,
+      },
+    },
+
+
+    // fourth stage
+    {
+      $limit: 1,
+    },
+
+    // fifth stage
+
+    {
+      $project: {
+        reviews: false,
+      },
+    },
+  ]);
+
+  return result;
+
 }
 
 
@@ -129,5 +182,6 @@ export const courseServices = {
   createCourse,
   getAllCourse,
   updateCourse,
-  getCourseWithReviews
+  getCourseWithReviews,
+  getBestCourse
 };
