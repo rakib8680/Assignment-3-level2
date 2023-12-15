@@ -1,14 +1,14 @@
-
-
-
-import { Router } from "express";
-import { reviewControllers } from "./review.controller";
-
-
+import { Router } from 'express';
+import { reviewControllers } from './review.controller';
+import { requestValidation } from '../../middlewares/requestValidation';
+import { createReviewSchemaValidation } from './review.validation';
 
 const router = Router();
 
-router.post('/reviews', reviewControllers.createReview)
-
+router.post(
+  '/reviews',
+  requestValidation(createReviewSchemaValidation),
+  reviewControllers.createReview,
+);
 
 export const reviewRoutes = router;
