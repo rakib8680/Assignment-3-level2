@@ -8,6 +8,7 @@ import { handleValidationError } from "../errors/handleValidationError";
 import { handleZodError } from "../errors/handleZodErrors";
 import { TErrorResponse } from "../types/TErrorResponse";
 import { handleCastError } from "../errors/handleCastError";
+import { handleDuplicateKeyError } from "../errors/handleDuplicateKeyError";
 
 
 export const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
@@ -20,10 +21,12 @@ export const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => 
 
     if(err instanceof ZodError){
        errorResponse =  handleZodError(err)
-    }else if(err.name === 'ValidationError'){
+    }else if(err?.name === 'ValidationError'){
         errorResponse = handleValidationError(err)
-    }else if(err.name === 'CastError'){
+    }else if(err?.name === 'CastError'){
       errorResponse = handleCastError(err)
+    }else if(err?.code === 11000){
+      errorResponse = handleDuplicateKeyError(err)
     }
 
 
