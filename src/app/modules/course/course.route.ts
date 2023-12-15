@@ -13,9 +13,17 @@ router.post(
 
 router.get('/courses', courseControllers.getAllCourse);
 
-router.put('/courses/:courseId', requestValidation(courseValidations.updateCourseSchemaValidation), courseControllers.updateCourse);
+router.get('/course/best', courseControllers.getBestCourse);
 
-router.get('/courses/:courseId/reviews', courseControllers.getCourseWithReviews)
+router.put(
+  '/courses/:courseId',
+  requestValidation(courseValidations.updateCourseSchemaValidation),
+  courseControllers.updateCourse,
+);
 
+router.get(
+  '/courses/:courseId/reviews',
+  courseControllers.getCourseWithReviews,
+);
 
 export const courseRoutes = router;
