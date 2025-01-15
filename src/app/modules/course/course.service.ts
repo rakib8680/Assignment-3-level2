@@ -10,12 +10,16 @@ const createCourse = async (payload: TCourse) => {
   return result;
 };
 
+
+
 // get all course
 const getAllCourse = async (
   query: Record<string, unknown>,
 ): Promise<TCourse[]> => {
+
   const result = await queryFunction(Course.find(), query);
   return result;
+  
 };
 
 // update course
@@ -31,7 +35,7 @@ const updateCourse = async (payload: Partial<TCourse>, id: string) => {
     throw new AppError(500, 'Failed to update course');
   }
 
-  //   update tags
+  //update tags
   if (tags && tags.length > 0) {
     // delete tags
     const deletedTags = tags
