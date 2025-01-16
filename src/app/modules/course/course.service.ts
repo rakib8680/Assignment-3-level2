@@ -10,16 +10,12 @@ const createCourse = async (payload: TCourse) => {
   return result;
 };
 
-
-
 // get all course
 const getAllCourse = async (
   query: Record<string, unknown>,
 ): Promise<TCourse[]> => {
-
   const result = await queryFunction(Course.find(), query);
   return result;
-  
 };
 
 // update course
